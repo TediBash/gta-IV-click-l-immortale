@@ -1,0 +1,175 @@
+{
+  "E1": {
+    "title": "Tre fratelli tra gli ulivi",
+    "bpm": 78,
+    "loop": true,
+    "duration": 73.846,
+    "peak": 0.5253,
+    "rms": 0.1031
+  },
+  "E2": {
+    "title": "Motori a Fossano",
+    "bpm": 104,
+    "loop": true,
+    "duration": 73.846,
+    "peak": 0.5362,
+    "rms": 0.1178
+  },
+  "E3": {
+    "title": "Due cervelli, zero prudenza",
+    "bpm": 108,
+    "loop": true,
+    "duration": 71.111,
+    "peak": 0.545,
+    "rms": 0.0999
+  },
+  "E4": {
+    "title": "Entrare senza bussare",
+    "bpm": 88,
+    "loop": true,
+    "duration": 65.455,
+    "peak": 0.5442,
+    "rms": 0.0875
+  },
+  "E5": {
+    "title": "Sotto la città",
+    "bpm": 76,
+    "loop": true,
+    "duration": 75.789,
+    "peak": 0.5276,
+    "rms": 0.0892
+  },
+  "E6": {
+    "title": "Diamanti e documenti",
+    "bpm": 96,
+    "loop": true,
+    "duration": 60.0,
+    "peak": 0.5788,
+    "rms": 0.0936
+  },
+  "E7": {
+    "title": "Roma non era pronta",
+    "bpm": 96,
+    "loop": true,
+    "duration": 60.0,
+    "peak": 0.5482,
+    "rms": 0.1136
+  },
+  "E8": {
+    "title": "Verso casa",
+    "bpm": 82,
+    "loop": true,
+    "duration": 70.244,
+    "peak": 0.5348,
+    "rms": 0.0829
+  },
+  "E9": {
+    "title": "Trenta, e un altro livello",
+    "bpm": 116,
+    "loop": true,
+    "duration": 66.207,
+    "peak": 0.5531,
+    "rms": 0.1204
+  },
+  "B1": {
+    "title": "Via di corsa!",
+    "bpm": 144,
+    "loop": true,
+    "duration": 53.333,
+    "peak": 0.5465,
+    "rms": 0.1272
+  },
+  "B2": {
+    "title": "La banda all’opera",
+    "bpm": 136,
+    "loop": true,
+    "duration": 56.471,
+    "peak": 0.5251,
+    "rms": 0.1259
+  },
+  "B3": {
+    "title": "Qui comando io!",
+    "bpm": 152,
+    "loop": true,
+    "duration": 50.526,
+    "peak": 0.5423,
+    "rms": 0.129
+  },
+  "room": {
+    "title": "Passaggio",
+    "loop": false,
+    "duration": 0.55,
+    "peak": 0.4575,
+    "rms": 0.1339
+  },
+  "chapter": {
+    "title": "Nuovo capitolo",
+    "loop": false,
+    "duration": 2.5,
+    "peak": 0.369,
+    "rms": 0.1122
+  },
+  "found": {
+    "title": "Oggetto trovato",
+    "loop": false,
+    "duration": 1.5,
+    "peak": 0.4042,
+    "rms": 0.1279
+  },
+  "photo": {
+    "title": "Ricordo dei fratelli",
+    "loop": false,
+    "duration": 2.0,
+    "peak": 0.396,
+    "rms": 0.1246
+  },
+  "objective": {
+    "title": "Obiettivo completato",
+    "loop": false,
+    "duration": 1.0,
+    "peak": 0.4213,
+    "rms": 0.1331
+  },
+  "boss": {
+    "title": "Boss sconfitto",
+    "loop": false,
+    "duration": 4.0,
+    "peak": 0.3462,
+    "rms": 0.0974
+  },
+  "victory": {
+    "title": "Missione completata",
+    "loop": false,
+    "duration": 6.0,
+    "peak": 0.3467,
+    "rms": 0.0974
+  },
+  "race": {
+    "title": "Primo posto",
+    "loop": false,
+    "duration": 5.0,
+    "peak": 0.3507,
+    "rms": 0.1006
+  },
+  "defeat": {
+    "title": "Ci riproviamo",
+    "loop": false,
+    "duration": 3.0,
+    "peak": 0.3322,
+    "rms": 0.0919
+  },
+  "birthday": {
+    "title": "Buon compleanno, Immortale",
+    "loop": false,
+    "duration": 7.0,
+    "peak": 0.3361,
+    "rms": 0.0902
+  },
+  "chest": {
+    "title": "Baule aperto",
+    "loop": false,
+    "duration": 0.8,
+    "peak": 0.4514,
+    "rms": 0.142
+  }
+}

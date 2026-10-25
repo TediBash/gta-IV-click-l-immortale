@@ -1,0 +1,14 @@
+{
+  "name": "gta-click-legacy",
+  "version": "0.23.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test tests/*.test.js",
+    "start": "node scripts/serve.mjs",
+    "start:lan": "node scripts/serve.mjs --lan"
+  },
+  "dependencies": {
+    "phaser": "3.90.0"
+  }
+}

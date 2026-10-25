@@ -1,0 +1,6 @@
+export const TRACKS={E1:'Tre fratelli tra gli ulivi',E2:'Motori a Fossano',E3:'Due cervelli, zero prudenza',E4:'Entrare senza bussare',E5:'Sotto la città',E6:'Diamanti e documenti',E7:'Roma non era pronta',E8:'Verso casa',E9:'Trenta, e un altro livello',B1:'Via di corsa!',B2:'La banda all’opera',B3:'Qui comando io!'};
+export const CHAPTER_MUSIC={1:['E1','B1','E1'],2:['E2','E2','B1'],3:['E4','E3','E3'],4:['E4','E4','E2'],5:['E5','E5','E2'],6:['E6','E4','E6'],7:['E6','E4','E7'],8:['E2','E3','E3'],9:['E7','E7','E7'],10:['E3','E2','E7','E8']};
+const ZONES={1:{base:'E4',departure:'E8'},2:{depot:'E4'},6:{vault:'E6'},10:{terrace:'E4',home:'E9'}};
+export function explorationTrack(scene){if(scene.isHideout)return 'E2';const m=scene.mission;return ZONES[m.id]?.[m.config.zone]||CHAPTER_MUSIC[m.id]?.[m.state.index]||'E2';}
+export function threatTrack(scene){if(scene.isHideout||scene.mission.mission.children||scene.race)return null;const heroes=scene.party.filter(p=>!p.ko&&!p.hidden);const active=scene.enemies.filter(e=>!e.ko&&heroes.some(p=>Math.hypot(e.x-p.x,e.y-p.y)<(e.boss?600:470)&&scene.map.clearLine(e.x,e.y,p.x,p.y)));return active.some(e=>e.boss)?'B3':active.length?'B2':null;}
+export const CUES={room:0,chest:1,objective:1,found:2,photo:3,chapter:4,boss:5,victory:6,race:6,defeat:7,birthday:8};

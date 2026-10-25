@@ -1,0 +1,28 @@
+# GTA Click — Skin 0.3
+
+Create con lo strumento integrato imagegen. Nessun uso della CLI o di API esterne.
+Le immagini sono integrate nel gioco e nei menu. I frame sono estratti a runtime dagli atlas, preservando i file originali.
+
+## File del progetto
+
+- Personaggi, 4 colonne × 3 righe: `/workspace/scratch/c8e05189f9ad/sites/gta-click-legacy/dist/assets/cast45-atlas.png` — Andy, Bruce, alligatore, quattro direzioni ciascuno.
+- Oggetti, 4 × 4: `/workspace/scratch/c8e05189f9ad/sites/gta-click-legacy/dist/assets/props-atlas.png` — quattro vetture, quattro casse, quattro oggetti da esplorare, quattro mobili.
+- Ambienti, 4 × 2: `/workspace/scratch/c8e05189f9ad/sites/gta-click-legacy/dist/assets/environment-atlas.png` — quattro edifici e quattro pavimenti per comporre le stanze.
+
+## Prompt dei personaggi
+
+Use case: stylized-concept. Production sprite atlas for the existing GBA-style pixel-art browser game GTA Click. Use reference 1 ONLY for pixel art rendering, proportions, camera and crisp black outlines. Reference 2 is Andy's real facial appearance: long wavy light brown hair, brown eyes, same face; elegant black blazer, burgundy trousers, practical black shoes. Reference 3 is Bruce's facial appearance: short dark beard/stubble, dark brows, knit black beanie; charcoal shirt, navy cargo trousers and white sneakers. Preserve their distinctive faces in this stylization. EXACT uniform grid FOUR columns and THREE rows, each cell square, all separated by transparent empty space. Row 1: Andy full body standing, front facing down, rear facing up, left profile, right profile. Row 2: Bruce full body in same four directions. Row 3: green alligator full body, top-down oblique RPG view, head pointing down, up, left, right. Alligator is a fictional arcade boss, fierce open mouth, no blood. Each subject centered fully inside its cell with 12% empty margin. Grid boundaries perfectly regular. Transparent background, no labels, no text, no borders, no shadows outside cells. Overall image 4:3 landscape. This is ONE sprite atlas consumed as twelve equal frames.
+
+Riferimenti: duo-atlas.png, Andrea_Ardizione_Andy(2).jpeg, Bruce_2(2).png. Sfondo trasparente.
+
+## Prompt degli oggetti
+
+Use case: stylized-concept. Create ONE square production sprite atlas for a polished top-down GBA pixel-art crime adventure set in Italy. EXACT 4 columns x 4 rows, 16 equal square cells, transparent empty background, crisp pixel details, dark navy outlines, consistent light from upper left. Every item completely isolated within its cell, centered with 12% empty margin. No labels, no lettering, no grid borders. Row 1 vehicles all true top-down, car front points RIGHT, all full vehicles: 1 purple tuned coupe with cyan racing stripe; 2 luxurious pearl white sports car; 3 teal getaway van; 4 orange vintage muscle car. Row 2 loot containers seen from slightly above/front: 1 open golden money crate with banknotes; 2 green first aid case with white medical cross; 3 blue energy supply crate with glowing cyan battery; 4 purple technology crate with small drone/controller. Row 3 exploration objects same oblique RPG view: 1 unfolded parchment street map with magnifier; 2 brass key on burgundy keycard; 3 dark travel bag with a folder of documents poking out; 4 steaming margherita pizza in open cardboard box. Row 4 furniture same oblique top-down RPG view: 1 elegant teal sofa; 2 double bed with burgundy blanket and white pillows; 3 mahogany office desk with papers; 4 glowing teal computer/security terminal. No people, logos, weapons or extra objects. Usable game sprites, not a UI mockup. Each cell contains only its designated object.
+
+## Prompt degli ambienti
+
+Use case: stylized-concept. ONE production environment atlas for a rich GBA pixel-art top-down adventure game set in Greece and Piedmont. Overall landscape image 2:1, EXACT FOUR columns x TWO rows of equal SQUARE cells, eight total. Upper row: four separate complete building exteriors, front-facing elevated RPG orthographic camera (not diagonal isometric): 1 Greek whitewashed house with blue door and terracotta roof; 2 Piedmont cream country house with shutters and tiled roof; 3 luxury Italian villa facade with pale stone columns, central doorway, symmetrical roof; 4 mechanic garage with teal shutter, brick facade and tools visible through doorway. Upper four cells genuinely transparent around each isolated house; each house fills 85% width, stays inside cell. Lower row: four seamless square ground/floor texture tiles, top-down, fill their entire cell edge-to-edge, NO furniture, NO walls or objects: 1 ivory marble floor with subtle gold square joints; 2 warm dark oak parquet; 3 mossy green sewer flagstones; 4 gray asphalt / workshop concrete. Rich crisp pixel-art, navy outlines on buildings, consistent scale, daylight, warm Mediterranean palette with teal accents. No text, no labels, no grid lines, no people. Keep all eight cell boundaries exactly aligned.
+
+### Correzione dello sfondo degli edifici
+
+Edit this game environment atlas. Preserve EXACT dimensions and equal 4 columns by 2 rows grid, every building and lower floor tile in its original cell, color and architecture. Remove ALL gray/white checkerboard backgrounds and dirty white haze around the four buildings in upper row: replace that with genuine fully transparent alpha, not a drawn checkerboard. Keep the entire lower row of four square floor textures fully opaque and unchanged. No checkerboard pixels anywhere, no shadows outside building silhouettes. Clean pixel-art cutout edges. Do not move, enlarge, crop or rearrange any cell. This is precise background extraction, preserving upper row buildings and lower row floor textures.

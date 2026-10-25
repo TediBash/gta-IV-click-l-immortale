@@ -1,0 +1,2 @@
+export function nearestEnemy(actor,enemies){return enemies.filter(e=>!e.ko).reduce((best,e)=>!best||Math.hypot(e.x-actor.x,e.y-actor.y)<Math.hypot(best.x-actor.x,best.y-actor.y)?e:best,null);}
+export function driftPoint(start,end,t){const dx=end.x-start.x,dy=end.y-start.y,d=Math.hypot(dx,dy)||1,bend=Math.min(110,d*.42),cx=(start.x+end.x)/2-dy/d*bend,cy=(start.y+end.y)/2+dx/d*bend,u=1-t;return {x:u*u*start.x+2*u*t*cx+t*t*end.x,y:u*u*start.y+2*u*t*cy+t*t*end.y};}

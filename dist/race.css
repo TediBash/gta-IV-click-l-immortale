@@ -1,0 +1,54 @@
+/* Dedicated driving controls. Each pedal's hit box is larger than its inner face. */
+.race-controls,.race-controls[hidden]{display:none!important}
+body.is-racing .touch-controls{display:none!important}
+.race-controls,.race-controls *{touch-action:none;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;overscroll-behavior:contain}
+.race-controls button{appearance:none;-webkit-appearance:none;min-height:44px;cursor:pointer;font-weight:900;border:0;color:#fff6df}
+.race-system{display:flex;align-items:center;gap:6px;min-width:0;padding:4px 0;grid-column:1/-1}
+.race-system>[data-race-status]{font:700 9px monospace;color:#bdf1dc;margin-right:auto;max-width:140px;line-height:1.4}
+.race-system button{font-size:9px;padding:7px 10px;border-radius:7px;background:#3a5268;min-width:44px}
+.race-system button small{font:8px monospace;opacity:.65}.race-system [data-race-system=pause]{background:#286b57}.race-system [data-race-system=journal]{background:#655286}
+.race-steer-zone{min-width:0;width:100%;align-self:center}
+.race-steering{--steer:0;position:relative;min-width:0;width:100%;min-height:132px;padding:10px 6px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;background:linear-gradient(145deg,#253a49,#152d36);border:2px solid #7aa49d;border-radius:20px;box-shadow:inset 0 2px 8px #071a2088;cursor:ew-resize}
+.race-steering:focus-visible{outline:3px solid #f7d84a;outline-offset:3px}
+.race-steer-label{font:800 10px monospace;letter-spacing:1px;color:#c1f1dc;pointer-events:none}
+.race-wheel{position:relative;width:57px;height:57px;border:6px solid #8bd4c3;border-radius:50%;transform:rotate(calc(var(--steer)*65deg));pointer-events:none}
+.race-wheel:before,.race-wheel:after,.race-wheel i{content:'';position:absolute;background:#8bd4c3;left:50%;top:50%;height:5px;width:24px;transform-origin:left center;transform:rotate(-150deg)}
+.race-wheel:after{transform:rotate(-30deg)}.race-wheel i{transform:rotate(90deg)}
+.race-steer-track{height:4px;background:#49636d;width:80%;border-radius:3px;position:relative;pointer-events:none}
+.race-steer-track i{position:absolute;left:calc(50% + var(--steer)*44%);top:-3px;width:10px;height:10px;border-radius:50%;background:#f7d84a;transform:translateX(-50%)}
+.race-steering small{font:700 7px monospace;color:#a1c5bf;text-align:center;pointer-events:none}
+.race-pedals{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;align-content:center;min-width:0;align-self:center}
+.race-pedals button{min-width:0;min-height:112px;padding:8px;background:#1e3541;border-radius:18px;border:2px solid #4f6a74;box-shadow:0 3px 0 #0f222d;display:flex;align-items:center;justify-content:center}
+.race-pedals button>span{display:flex;flex-direction:column;justify-content:center;align-items:center;gap:10px;width:100%;min-height:84px;border-radius:10px;background:#ed9a94;color:#312b34;font-size:30px;pointer-events:none;box-shadow:inset 0 2px #fff5}
+.race-pedals button b{font:900 11px Arial;letter-spacing:.3px}.race-pedals .race-turbo>span{background:#f5d96a}.race-pedals .race-gas>span{background:#87dabc;font-size:20px;flex-direction:row;min-height:42px}
+.race-pedals .race-gas{display:none;grid-column:1/-1;min-height:54px;padding:5px 8px;border-radius:12px}
+.manual-acceleration .race-gas{display:flex}.manual-acceleration .race-pedals button:not(.race-gas){min-height:82px}.manual-acceleration .race-pedals button:not(.race-gas)>span{min-height:64px}
+.race-controls button.is-held{border-color:#e0ffe4;background:#547b71}.race-controls button.is-held>span{background:#c8ffdc;transform:translateY(2px)}
+body.is-racing .game-footer{font-size:0}body.is-racing .game-footer>span{display:none}body.is-racing .game-footer:after{content:'← → / A D sterzo · ↓ / S freno · K / X turbo · R retromarcia · START per le opzioni';font-size:11px}
+@media(max-width:980px),(any-pointer:coarse){
+ body.is-racing .game-layout{display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:auto auto auto;gap:0}
+ body.is-racing .game-frame{grid-area:1/1;min-width:0}
+ body.is-racing .race-controls:not([hidden]){display:grid!important;grid-area:2/1;grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr);gap:8px 12px;width:100%;padding:8px 12px 14px;background:#172e3a;border:1px solid #55716e;border-radius:0 0 20px 20px}
+ body.is-racing .mission-panel{grid-area:3/1}
+}
+/* Fullscreen uses the same panel even on a tablet with a fine-pointer accessory. */
+body.immersive.is-racing .game-layout{grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(0,1fr) auto}
+body.immersive.is-racing .game-frame{grid-area:1/1}
+body.immersive.is-racing .race-controls:not([hidden]){display:grid!important;grid-area:2/1;grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr);gap:8px 12px;padding:8px 12px;background:#172e3a;border:1px solid #55716e;border-radius:0 0 20px 20px}
+@media(orientation:landscape) and (max-width:980px),(orientation:landscape) and (any-pointer:coarse){
+ body.is-racing .game-layout{grid-template-columns:clamp(112px,18vw,160px) minmax(0,1fr) clamp(142px,21vw,185px);grid-template-rows:auto minmax(0,1fr) auto;gap:5px 8px;align-items:stretch}
+ body.is-racing .race-controls:not([hidden]){display:contents!important}
+ body.is-racing .race-system{grid-area:1/1/2/4;min-height:44px}
+ body.is-racing .race-steer-zone{grid-area:2/1}.is-racing .race-pedals{grid-area:2/3}
+ body.is-racing .game-frame{grid-area:2/2;margin:0}.is-racing .mission-panel{grid-area:3/1/4/4}
+ body.is-racing #game-canvas{height:max(180px,calc(100dvh - 194px));aspect-ratio:auto}
+}
+@media(orientation:landscape){
+ body.immersive.is-racing .game-layout{grid-template-columns:clamp(112px,18vw,160px) minmax(0,1fr) clamp(142px,21vw,185px);grid-template-rows:44px minmax(0,1fr);gap:4px 8px}
+ body.immersive.is-racing .race-controls:not([hidden]){display:contents!important}
+ body.immersive.is-racing .race-system{grid-area:1/1/2/4}.is-racing.immersive .race-steer-zone{grid-area:2/1}.is-racing.immersive .race-pedals{grid-area:2/3}
+ body.immersive.is-racing .game-frame{grid-area:2/2;min-height:0}.is-racing.immersive #game-canvas{height:auto;min-height:0}
+ body.immersive.is-racing .quick-objective{display:none}
+}
+@media(max-width:380px){.race-system>[data-race-status]{font-size:8px;max-width:90px}.race-system button{padding:7px 6px;font-size:8px}.race-steering{min-height:126px}.race-steering small{font-size:6px}.race-pedals button{padding:6px;min-height:104px}.race-pedals button b{font-size:10px}}
+@media(orientation:landscape) and (max-height:420px){.race-steering{min-height:114px;padding:7px 4px;gap:5px}.race-steering small{font-size:6px}.race-wheel{width:48px;height:48px}.race-pedals button{min-height:100px}.manual-acceleration .race-pedals{gap:4px}.manual-acceleration .race-pedals .race-gas{min-height:44px}.manual-acceleration .race-gas>span{min-height:30px}.manual-acceleration .race-pedals button:not(.race-gas){min-height:72px}.manual-acceleration .race-pedals button:not(.race-gas)>span{min-height:54px}}
