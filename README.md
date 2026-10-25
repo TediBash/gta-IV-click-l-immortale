@@ -1,93 +1,238 @@
-# GTA CLick — L'Immortale · GBA Legacy Edition
+# GTA CLick — L’Immortale
 
-Version 0.23: added the saved, default-off “Sblocca tutte le missioni” checkbox at the top of Options. The access override applies consistently to the home map, journal, direct launches and checkpoint resumes. Changing it refreshes map locks immediately while preserving the selected mission, actual completion count, checkpoint and running session. Turning it off restores prerequisite-based access; toggling never calls completion/save reset methods. 175 automated tests pass, including the actual checkbox handler, persisted on/off values, unchanged checkpoint/completion records, map/journal states and launch guards. This small settings change reuses the existing layout; no browser visual verification is claimed.
+### Fossano non era pronta. Il browser nemmeno.
 
+**Un’avventura arcade 2D nata per il trentesimo compleanno di Klaudio: una banda di amici, dieci missioni e una quantità discutibile di buone idee.**
 
-Version 0.22: dedicated race controls replace the combat pad only during the circuit chapter. An analog drag surface steers continuously, centers on release and supports one steering thumb alongside independent pedals. Large brake/turbo hit targets sit below the view in portrait and in separate side rails in landscape, with Start/Select and a distinct hold-to-reverse button away from the main pedals. Automatic acceleration and assisted steering/bend deceleration default on and are independent saved options; disabling auto gas reveals a gas pedal. Brake wins over auto gas, reverse and turbo and never engages reverse. Keyboard controls remain available (arrows/WASD, K/X turbo, R reverse). Pause, orientation/resize, blur, lost capture, scene changes, win/loss and home reset shared race input. Countdown consumes premature turbo taps. Existing race checkpoints, two-lap rules, rewards, opponent difficulty and all other missions remain. 170 tests pass, including all chapters at all difficulties, analog/multitouch lifecycle, settings persistence, braking/reverse, scene control-mode switching and an assisted two-lap completion simulation. Managed preview is unavailable; browser/device visual verification is not claimed.
+[🎮 Gioca nel browser](https://tedibash.github.io/gta-IV-click-l-immortale/) · [🚀 Avvio locale](#avvio-locale) · [🧩 Architettura](#architettura-del-codice) · [🛠️ Sviluppo](#come-estendere-il-gioco)
 
+**10 missioni · 31 capitoli · 11 personaggi giocabili · 4 difficoltà · Desktop e touch**
 
-Version 0.21: restored the original interactive Click Boy Color under How to Play, retaining the mission-map homepage and sequential unlocks. Added six enemy roles (recon, sapper, riot, medic, duelist, drone pilot), distinctive native equipment overlays, and four chiefs (Argo, Scrap King, Volt, Onyx). Ten mission-specific rosters preserve spawn coordinates, counts, save indices, quiet rooms, races and the alligator encounter; legacy enemies and intermediate bosses remain. Easy exposes one ability, Normal two, Hard/Extreme three; Extreme announces and resolves two effects in a single cast, rotating pairs across all three. Abilities include target-locked drone impacts, slow nets, explosive zones, heals for living allies only, rally haste, energy drain, shields, lunges and cross attacks. Both effects are interruptible and obey line of sight. Children get a longer warning and capped special damage. Boss HP phases remain independent; difficulty adds escorts instead of duplicate bosses. Relative cooldown/rotation persist across room saves without delayed damage leaking into another room. Bruce's inspection now breaks all enemy shields. The enemy journal lists difficulty-specific moves and mission deployments. Automated regression checks cover all 31 chapter scenes and the new rotations/effects; managed preview infrastructure is unavailable, so browser/mobile visual QA remains unverified.
+![La mappa illustrata dell’avventura, dalla Grecia al Piemonte e a Roma](dist/assets/journey-map.png)
 
+## Da un regalo a un videogioco
 
-Version 0.20: the homepage now opens directly on the illustrated mission map, replacing the Fossano title/console section. Selectable flags show locked, available and completed states; a mission-specific Play/Resume panel and difficulty selector sit alongside/below the map. A four-part guide covers goals, controls, reviving, options, audio, fullscreen and browser-local progress. The existing enemy/world/hideout sections are preserved. Mission access requires all preceding missions to be completed; old completion records are retained and validated. The same guard applies to the map, journal, launch dispatch and checkpoint resumes. All missions become freely replayable after completion. A nearby KO teammate can be revived with one fresh A/J press: a highlighted body, label and progress bar show a two-second active-simulation rescue. An impact on the rescuer interrupts it (including shield-absorbed hits); retry requires a fresh press. Switching, KO, range/visibility/line-of-sight changes and room transitions cancel cleanly. Recovery restores exactly 15% max HP and 100% special, with a healing heart/pulse, rising sound and reduced-motion support. 144 automated tests pass, including progression/access surfaces, map state, rescue timing/interruption/pause, real-scene controls and revived checkpoint persistence. Managed preview remains unavailable; browser/mobile visual QA is unverified.
+Questo progetto nasce dall’idea di trasformare amici, battute e situazioni personali in un videogioco dedicato a **Klaudio, detto Click l’Immortale**, grande appassionato di PlayStation.
 
+Prima sono arrivati il racconto, le illustrazioni, il manuale cartaceo e la copertina del gioco. Poi quel mondo è diventato un’avventura giocabile nel browser: un omaggio all’immaginario di GTA, reinterpretato con visuale dall’alto, comandi da console portatile e atmosfere da action RPG dell’epoca Game Boy Advance.
 
-Version 0.19: mission 1 spawns military patrols only after the firecracker and along the escape route. Soldiers have green helmet/vest details; child companions keep following instead of engaging them. Helicopter spotlights slowly track nearby players, turn red on detection and block all room/chapter exits until the controlled character spends three consecutive active seconds outside every beam. Reentry resets the timer; pause/reload preserves it and beam positions. The HUD, guide, minimap and portal lock share this state. All combat groups now scale by difficulty: Easy ×1, Medium ×2, Hard ×3, Extreme ×4.5 (rounded up per group), with increased health/damage and unique bosses plus ordinary escorts. Story-only cinematic enemies remain fixed. Spawn placement, objective totals, navigation and snapshots use the same stable lists; previous-stage reinforcements stay defeated when loading older checkpoints. Green irregular spiral portals animate at 20 fps, freeze under reduced motion and turn purple when locked/red during alerts. Touch START opens pause/options; SELECT opens objectives; CAMBIA still changes character. Enter/Escape and M provide keyboard equivalents. Controls clear held touches before menus. 130 automated tests pass, including every exploration chapter at all four difficulties, live Greek patrol/alert/save integration, exact three-second timing, safe spawns, unique bosses and input separation. Browser/mobile visual QA remains unavailable because the managed preview daemon is missing.
+Il risultato unisce esplorazione, combattimenti, guida e dialoghi illustrati. I personaggi hanno talenti diversi, le missioni attraversano ambienti collegati e le scene del manuale accompagnano i momenti importanti della storia.
 
+## La storia
 
-Version 0.18: all eleven characters now have base plus two selectable specials (22 variants total), including Bruce's bounce/shield-break kicks, tracking/EMP drones, Spit's two-leg drift/rescue, Carlitos crystals, Ale support/silence, Andy decoy/protection and Paula/Nico marked-target teamwork. Simulation-timed effects preserve collisions, boss phases, charge on invalid targets, pause and cleanup. Missions gain recessed door portals with visible thresholds, destination names and locked-state colors. An objective resolver covers every exploration chapter, chooses reachable room exits and handles return trips, collected items, cars, enemies, route steps and prerequisites. A short collision-aware breadcrumb trail and player-adjacent arrow share their target with the minimap, which now includes workshop doors, all other entrances/exits, objectives, selected route, player and a legend. The race points at its next checkpoint. 120 automated tests pass, including guided completion of all non-race chapters, real-actor special integration and persistence/timing regressions. Managed preview infrastructure is unavailable; browser/mobile visual QA and subjective balance remain unverified.
+Click sa costruire, riparare e prendere a pugni quasi qualsiasi cosa. La sua vera specialità, però, è uscire da situazioni nelle quali una persona normale non sarebbe mai entrata.
 
+Tutto comincia in Grecia, con Click, Paula e Nico bambini, una vecchia struttura militare e una pessima idea. Il trasferimento a Fossano sembra l’inizio di una vita tranquilla. È soltanto il prologo.
 
-Version 0.17: first powerup batch for Click, Luca and Anna. A persistent, independent settings loadout selects base or one of two variants in the home/covo; active missions cannot change it. A dedicated hideout bench and menu tab expose all six choices. Click has a timed three-hit boxing combo or one-use guard/counter; Luca has visible judo throws/robot bees plus chain throws or a four-second, three-shot sentinel; Anna has a medical kit/pulse/revive animation plus prioritized triage with a bounded shield or three gradual healing ticks. Actions run on active simulation time, respect collision/line of sight, reset across zone changes and use the original B/K controls; boss throws are disabled and added stun is capped. Base child dashes are unchanged. 104 tests pass, including real scene/actor integration for all six choices, saves, shields, timing, walls, pause, cleanup and reduced motion. Managed preview remains unavailable: visual/device QA and subjective balance still need playtesting. Other characters' variants, team combinations and temporary pickups remain future work.
+Tra officine, gare, laboratori, sotterranei e diamanti, intorno a Click si forma una squadra improbabile. Ogni nuovo amico porta una capacità, una complicazione e un altro motivo per non tornare a casa presto. La strada conduce fino a Roma, prima di riportare tutti a Fossano per un compleanno decisamente fuori dal comune.
 
-Version 0.16: mission 10 artwork now follows each story beat rather than reusing chapter endings for every interaction. Eleven reviewed manual crops cover technical coordination, prototype, Rome, Spit's car, news, homeward travel, reunion and birthday. Individual dialogue lines can change the illustration (TV news → Alps) or retain the visible game scene when no matching combat panel exists. Resumed adventures use the current zone's artwork. All 94 tests pass, including per-line rendering, explicit point coverage, zone-resume selection and finale animation dispatch. Original manual panels and cropped previews inspected locally; browser/device QA remains unavailable.
+## Cosa si può fare
 
-Version 0.15: separate Voices and Background Music quick toggles on the home and in the game/fullscreen header, synced with settings and persisted independently. Turning on one channel under global mute keeps the others off. Game shell touch-action:manipulation prevents accidental double-tap zoom outside A/B; blank-area touchend fallback and pointer cancellation also cover empty control rails without swallowing button clicks, multitouch or deliberate pinches. No global viewport zoom lock. 89 automated tests pass, including persisted independent channels, global mute transitions, missed taps and pinch/multitouch regression tests. Real-device/visual QA remains unavailable because the managed preview daemon is missing.
+- **Seguire la campagna:** scegliere una missione sulla mappa, completare gli obiettivi e sbloccare le successive.
+- **Cambiare personaggio:** controllare un componente della squadra mentre i compagni sono gestiti dall’IA.
+- **Esplorare ambienti collegati:** attraversare strade, officine, ville, strutture e sotterranei passando da una zona all’altra.
+- **Combattere con stili diversi:** pugni, calci volanti, droni, judo, derapate, cure e attacchi dei gemelli, con effetti a fumetti e varianti delle abilità.
+- **Affrontare nemici e boss:** ruoli, poteri e fasi di combattimento differenti, con attacchi speciali annunciati visivamente.
+- **Guidare e gareggiare:** recuperare l’auto, trasformarla in officina e scendere in pista con controlli dedicati.
+- **Seguire gli indizi:** usare minimappa, frecce, percorsi guida e portali riconoscibili per trovare obiettivi e uscite.
+- **Rianimare un compagno:** avvicinarsi al personaggio a terra e premere A; servono due secondi senza essere colpiti. Il compagno torna con il 15% di vita e la barra speciale piena.
+- **Visitare il covo:** ritrovare la banda e scegliere le varianti delle mosse speciali.
+- **Personalizzare l’esperienza:** difficoltà, guida assistita, movimento ridotto, fullscreen, musica e voci.
 
-Version 0.14: the opening home section is now a GTA-inspired handheld title screen, with a purple/pink sunset, mint Start button, prominent resume/mission controls, original manual illustration and an interactive Click Boy console. A/Start launches, B/Select opens the mission map, and the directional pad changes the selected mission. Enemy and skin section markup is preserved. New styles are isolated in home.css and keep gameplay/fullscreen styles intact. 83 regression tests pass and home IDs/assets/actions were checked; browser visual QA remains unverified because the managed preview daemon is unavailable.
+È un gioco **single player con squadra controllabile**, senza multiplayer online. Le illustrazioni del manuale vengono usate per dialoghi e sequenze narrative; non sono filmati prerenderizzati.
 
-Version 0.13: 12 original fully rendered chiptune loops (45–90 seconds) and 11 event jingles in assets/music. Music follows all 31 chapters plus room overrides, nearby combat and bosses with a 3.5-second release hold. Web Audio buffers preserve positions across pauses, crossfade theme changes and duck under dialogue/fanfares. Independent persisted music/effects/voice toggles and volumes, global mute, and a 15-second preview selector. music.html plays complete tracks and offers WAV downloads. Ted's drone has launch/dive/impact sounds. 83 automated tests pass; managed browser preview is unavailable, so subjective listening/device QA is still unverified. Regenerate compositions using Python 3 + numpy: python3 scripts/compose_soundtrack.py. Existing music files require no generation or extra dependency to play.
+## La banda
 
-Version 0.12: mission 09 has six connected Rome zones; mission 10 has eight zones covering the technical team, Bruce/Carlitos/Spit, the twins and reunion, the homeward news and the birthday with all eleven friends. Safe door arrivals now support the full roster. All chapter goals, room state and absent teammates persist. Seven character specials have signature animations; Ted's drone visibly flies, dives and explodes, with damage at impact and line-of-sight checks. Click gains brief protection, Carlitos stuns, twins gain combined protection/stun, Andy interrupts with the luxury-car distraction and Ale's voice waves retain interruption/team recharge. 76 automated tests pass, including both complete final missions and drone timing. Managed browser preview remains unavailable: visual/device QA is unverified.
+| Personaggio | Identità in squadra | Mossa caratteristica |
+| --- | --- | --- |
+| **Click / Klaudio** | Pugile, artigiano e protagonista | Furia Immortale |
+| **Ted / Tedi** | Tecnologia, terminali e droni | Attacco Droni |
+| **Spit** | Carrozzeria, motori e recuperi impossibili | Derapata di Recupero |
+| **Paula** | Agilità e intesa con Nico | Colpo dei Gemelli |
+| **Nico** | Tempismo e attacchi coordinati con Paula | Colpo dei Gemelli |
+| **Andy** | Lusso, accessi e distrazioni | Affare di Lusso |
+| **Bruce** | Ispezioni e soluzioni poco convenzionali | Calcio Volante |
+| **Carlitos / Carlo** | Diamanti e colpi con Bruce | Tempesta di Diamanti |
+| **Ale / Alessia** | La voce della squadra | Ultimo Voto |
+| **Luca** | Ingegneria, judo e prototipi | Sciame APE |
+| **Anna** | Supporto e cure | Impulso Vitale |
 
-Version 0.11: missions 07 and 08 now span six connected zones each, including Ale’s witness/archive investigation and Luca’s component collection, return to the workbench, animated assembly, test flight, telemetry and packing. Non-alligator bosses unleash a telegraphed attack once at 50% health; the new golden Overseer uses a cross-shaped discharge. Completed phases persist in all connected-zone save formats. The alligator keeps its two third-health charges. Fullscreen now places controls below the map in portrait and in separate left/right rails in landscape, with safe-area padding, browser-height adaptation and aspect-preserving camera dimensions. Continuous multitouch remains available. 74 automated tests pass, including complete connected missions 01–08, half-health phases, save/reload, collisions and viewport ratios. Managed browser preview is unavailable; mobile/visual QA is still unverified.
+Ogni personaggio dispone della mossa base e di due varianti selezionabili. Il prologo usa le versioni bambini di Click, Paula e Nico, con abilità adatte alla fuga.
 
-Version 0.10: missions 05 and 06 now each span seven connected zones. Bruce lowers sewer water, fights a two-phase charging alligator and delivers the pizza KO; Carlitos moves through inspection, production, offices, vault access, diamonds and Spit’s animated pickup. Bruce’s special now visibly lunges toward the nearest reachable enemy. New Scudiero and Pulsar enemies have shield/repel and double-pulse powers, also included in later missions. Chapter party changes preserve absent teammates’ health; valve states, boss charges, loot and interrupted cinematics survive reload. 70 automated tests pass, including complete missions 01–06 (connected portions), collision and combat cases. Managed preview remains unavailable, so browser/mobile visual QA is unverified.
+## La campagna
 
-Version 0.7: curated manual panels with aspect-preserving SVG frames, responsive dialogue text, an explorable eleven-character hideout and a portable local launch script. Start with `npm start`, then open http://localhost:8080. See AVVIO_LOCALE.md for Italian instructions. No dependency installation is needed to play. 55 automated checks pass; browser/device visual QA remains unavailable.
+| Missione | Titolo | Scenario |
+| --- | --- | --- |
+| 01 | Il battesimo del fuoco | Infanzia in Grecia, fuga e partenza per Fossano |
+| 02 | Fidati del carrozziere | L’incontro con Spit, l’officina e il circuito |
+| 03 | Due cervelli, zero prudenza | Click e Ted tra infiltrazione e tecnologia |
+| 04 | Un affare di lusso | La villa, Andy e una fuga da preparare |
+| 05 | Sotto Torino | Bruce, i sotterranei e un alligatore |
+| 06 | Brilla, Carlitos | Ispezione, amicizia e diamanti |
+| 07 | L’ultimo voto | L’indagine di Ale |
+| 08 | Operazione APE | Componenti, officina e prototipi di Luca |
+| 09 | Roma non era nel piano | Click in abito elegante e l’incontro con Anna |
+| 10 | Click l’Immortale | La banda riunita, il finale e il ritorno a Fossano |
 
-Version 0.6: visual journey selector, persistent connected street/workshop/depot maps in mission 02 chapter 2, controllable car, parking bay validation and illustrated transformation. 52 automated tests pass; the integration scenario completes the full parts → depot → car → workshop → paint → reload → race sequence.
+Le prime nove missioni hanno tre capitoli ciascuna; l’ultima ne ha quattro. I capitoli possono comprendere più stanze o zone collegate.
 
-Version 0.5: illustrated portrait conversations across all chapters, manual cutscenes, raised-arm loot celebrations, stronger directional Spit drift, enemy specials and Greek/villa scenery. See ROADMAP_MAPPE.md for the separately planned multi-zone evolution.
+Alla prima partita è disponibile la missione 1. Completando le missioni si sbloccano le successive. L’opzione **“Sblocca tutte le missioni”** permette di esplorare liberamente la campagna: disattivarla ripristina l’accesso basato sui progressi effettivi, senza cancellarli.
 
-Previous campaign foundation: all ten missions, 31 chapters and eleven playable characters. Includes the diamond factory and caveau, Ale’s archive, Luca’s APE workshop, elegant Click and Anna in Rome, the full-band Jubilee finale and the 30th birthday in Fossano. New directional cast atlases and 16 world details enrich all mission locations. Combat now adds bounded comic bursts, BAM / POW / KO and character-specific specials, including twin teamwork, judo, diamonds and Anna’s revival pulse. Fullscreen has a reversible viewport fallback, adaptive portrait/landscape rendering and continuous multitouch controls. Existing browser-local saves and uploaded voice lines remain compatible.
+## Comandi
 
-## Development
+| Azione | Tastiera | Smartphone / tablet |
+| --- | --- | --- |
+| Movimento | Frecce oppure WASD | Croce direzionale continua |
+| Attacco / interazione | J, Z oppure Spazio | A |
+| Mossa speciale | K oppure X | B |
+| Cambia personaggio | Q oppure Tab | CAMBIA |
+| Pausa / impostazioni | Esc oppure Invio | START |
+| Diario / obiettivi | M | SELECT |
 
-Modular ES6 JavaScript using Phaser 3.90 (vendored for reliable hosting). Static application in `dist/`. Run `npm test` for domain tests and serve `dist/` using any static web server. No API keys or backend are required; a local static HTTP server is required for JavaScript modules.
+Sul touch è possibile trascinare il dito tra le direzioni senza sollevarlo e usare contemporaneamente l’altro pollice per le azioni. I comandi si dispongono sotto il gioco in verticale e ai lati in orizzontale.
 
-## Voice replacement
+Durante la gara compaiono **sterzo, freno e turbo dedicati**. Accelerazione automatica e guida assistita sono attive inizialmente e modificabili nelle impostazioni. Su tastiera: sinistra/destra per sterzare, giù per frenare, K/X per il turbo e R per la retromarcia; con il gas automatico disattivato si accelera con su.
 
-`dist/js/data/voices.js` defines immutable dialogue IDs such as `click.attack.01`. The voice system looks for a recording with that ID in IndexedDB, plays it when available, and falls back to Italian browser speech synthesis. The Voices menu uploads, previews, and removes recordings per line and lets users choose an installed Italian browser voice per character. Uploading one sample does not clone a voice. A later voice-cloning workflow can generate the clips externally and map them to the same IDs.
+## Musica e voci
 
-Recordings and progress are local to the browser and origin. Clearing site data removes them. Preserve original audio files. Browser voice availability varies by device; subtitles continue when speech is unavailable. Audio requires a user gesture.
+La colonna sonora comprende **12 brani chiptune e 11 brevi musiche evento**: esplorazione, combattimenti, boss, gare, oggetti trovati, cambi stanza, vittoria e compleanno. La musica segue il contesto e abbassa il volume durante i dialoghi.
 
-## Architecture
+**Musica di sottofondo e voci hanno pulsanti separati**; nelle impostazioni sono disponibili anche i controlli degli effetti sonori e dei volumi.
 
-- core: events, save version, normalized input, mission state
-- world: map rendering/collision/navigation, environment objects, scene orchestration
-- characters: character state, equipment, ally and enemy controllers
-- combat: directional attack, combo buffer, special strategies
-- audio: IndexedDB recordings and audio/speech arbitration
-- ui: DOM presentation and menus
-- data: canonical roster, mission configuration and stable dialogue bank
+Le battute usano registrazioni associate a identificatori stabili, come `click.attack.01`. Dal menu Voci si possono caricare, ascoltare e rimuovere clip per le singole battute. Quando una registrazione non è presente, il gioco usa la sintesi vocale italiana del browser, se disponibile. Il caricamento di un audio **non clona la voce**.
 
-## Campaign and future improvements
+## Avvio locale
 
-Campaign: 01 Greek childhood (firecracker, flee then explosion, move to Fossano); 02 Spit, stolen car transformed and races won; 03 Click/Ted infiltrate, fight, take money and technology; 04 Andy luxury villa; 05 Bruce tunnels/alligator/pizza; 06 Carlitos and Bruce meet during inspection then diamond heist; 07 Ale's final vote; 08 Luca/Ted/Click APE prototype; 09 elegant Click meets Anna in Rome; 10 full band at Jubilee, fictional minister plot, combat, return to Fossano, 30th birthday.
+Per giocare online basta aprire il [sito del progetto](https://tedibash.github.io/gta-IV-click-l-immortale/).
 
-Future improvements: dedicated walking/attack animation frames, more combat arenas, expanded character dialogue banks and audio pack import. Current sprites are directional art with movement/hit effects, not full frame-by-frame animation sheets. These are compact arcade chapters; cinematics use manual illustrations and portrait dialogue, not prerendered video.
+Per avviare una copia locale, usa Node.js 22 o successivo e scarica oppure clona questo repository:
 
-## Verification
+```bash
+git clone https://github.com/tedibash/gta-IV-click-l-immortale.git
+cd gta-IV-click-l-immortale
+npm start
+```
 
-40 automated tests cover mission gates and party roles across all 31 chapters, save migration, race checkpoint order, reachable interactions, enemy profiles, melee collision, pathfinding, equipment, recorded-audio fallback, specials/revival/twin attacks, bounded effects, fullscreen transitions, denied/unsupported fallback, and touch controls. Application modules pass Node syntax checks.
+Apri **http://localhost:8080** e lascia il terminale attivo. Se hai scaricato lo ZIP, estrailo e apri il terminale nella cartella che contiene `package.json` prima di eseguire `npm start`.
 
-Browser visual/control QA could not run: `sites-preview start` and `status` report the managed preview supervisor mailbox is unavailable. Real iOS/Android fullscreen, orientation, layout, difficulty and performance therefore remain unverified. Native fullscreen availability depends on browser/embedding policy; fallback expands the game inside the browser window and cannot remove browser chrome.
+Il motore Phaser è già incluso negli asset: **non serve eseguire `npm install` per giocare o avviare i test inclusi**. Non aprire `index.html` con un doppio clic: i moduli JavaScript richiedono un server HTTP.
 
-The Greek prologue presents the firecracker incident as a story beat followed by a distant flash. The fictional minister finale remains a non-graphic story card without real-world technical instructions. All campaign entries are playable, including the birthday epilogue.
+Per provare il gioco dal telefono sulla stessa rete Wi-Fi:
 
-## Touch controls (0.2.1)
+```bash
+npm run start:lan
+```
 
-Continuous eight-direction D-pad with a neutral center; keep one thumb down and slide between directions. Independent pointer capture supports the other thumb holding A/B or sliding between them. Input sources are merged so releasing a finger does not release a keyboard key or another finger. Pause, capture loss, blur and resize clear input. Quick action taps are preserved until a game update.
+Sul telefono apri `http://IP-DEL-COMPUTER:8080`, sostituendo il segnaposto con l’indirizzo locale del computer. Il firewall deve consentire l’accesso al server.
 
-Controls are directly after the game viewport, with larger buttons, pressed feedback, SVG direction icons, local text-selection/callout prevention and a compact landscape layout. The rest of the page remains selectable and scrollable. Tests cover touch event routing, concurrent input, release and interruption; actual iOS/Android rendering and long-press behavior remain unverified because managed preview is unavailable.
+## Architettura del codice
 
+Il gioco è un’applicazione statica in **JavaScript con moduli ES**, costruita con **Phaser 3.90.0**. Phaser gestisce la scena di gioco; HTML e CSS gestiscono la home, i menu, i dialoghi e i controlli. Non servono backend, account di gioco o chiavi API.
 
-## Fullscreen and asset reference
+La cartella `dist/` contiene sia i file pubblicabili sia il codice JavaScript leggibile: in questa versione non esiste un passaggio obbligatorio di compilazione o bundling.
 
-Use FULL SCREEN beside PAUSA. RIDUCI exits; native browser Escape is respected. On a denied or missing Fullscreen API the same layout fills the available viewport. Portrait puts touch controls below the action; short landscape places them beside it. The current objective remains visible as a tappable diary shortcut. Camera and minimap follow the resized logical viewport.
+| Percorso | Responsabilità |
+| --- | --- |
+| `dist/index.html` | Pagina di ingresso e struttura dell’interfaccia |
+| `dist/style.css`, `dist/home.css` | Aspetto del gioco, home e layout responsive |
+| `dist/js/main.js` | Avvio dell’applicazione e collegamento dei servizi |
+| `dist/js/data/` | Personaggi, missioni, zone, dialoghi, nemici, abilità e riferimenti alle illustrazioni |
+| `dist/js/core/` | Input, eventi, progressione, sessioni e salvataggi |
+| `dist/js/world/` | Scena Phaser, mappe, navigazione, transizioni, veicoli e regole ambientali |
+| `dist/js/characters/` | Personaggi giocabili, equipaggiamento, IA dei compagni e dei nemici |
+| `dist/js/combat/` | Attacchi, combo, speciali, potenziamenti, boss, effetti e rianimazione |
+| `dist/js/ui/` | Menu, mappa delle missioni, dialoghi, immagini, fullscreen e controlli della gara |
+| `dist/js/audio/` | Musica, effetti, sintesi vocale e registrazioni |
+| `dist/assets/` | Atlanti grafici, illustrazioni del manuale, musica e copia locale di Phaser |
+| `scripts/` | Server locale e strumenti di supporto |
+| `tests/` | Test automatici eseguiti con il test runner di Node.js |
+| `.github/workflows/pages.yml` | Pubblicazione della cartella `dist/` su GitHub Pages |
 
-Generated asset paths and full prompts: `ASSET_PROMPTS_04.md`. API implementation reference: https://developer.mozilla.org/en-US/docs/Web/API/Element/requestFullscreen and https://developer.mozilla.org/en-US/docs/Web/API/Document/fullscreenchange_event.
+### Come parte una partita
 
+```mermaid
+flowchart TD
+    A["Home e mappa delle missioni"] --> B["ClickGame: selezione e verifica accesso"]
+    B --> C["GameScene: creazione o ripresa della partita"]
+    D["Dati di missioni, zone e personaggi"] --> C
+    C --> E["Esplorazione, combattimento e obiettivi"]
+    E --> F["Checkpoint e progressione"]
+    F --> B
+```
 
-Validation v0.5: 47 Node tests pass, including all 31 scene constructions, dialogue completion, enemy telegraphs and four-direction drift. Browser QA is unavailable because the managed preview mailbox is missing; no real-device visual verification is claimed.
+`ClickGame`, in `main.js`, crea i servizi condivisi: eventi, salvataggi, input, audio e interfaccia. Quando si avvia una missione, controlla l’accesso tramite `CampaignAccess`, recupera l’eventuale checkpoint e crea o riattiva `GameScene`.
+
+`GameScene` è il punto di coordinamento del gameplay: carica il capitolo, costruisce mappa e squadra, prepara nemici e oggetti, collega le abilità e aggiorna la partita. La logica specifica è distribuita nei moduli di supporto, anche se questa classe mantiene un ruolo centrale nell’orchestrazione.
+
+### Missioni, capitoli e stanze
+
+`data/campaign.js` raccoglie la campagna. Le configurazioni descrivono obiettivi, squadra, punti interattivi, ostacoli e incontri. `MissionManager` tiene traccia degli obiettivi e verifica quando è possibile concludere il capitolo.
+
+Le mappe collegate usano coppie di moduli con compiti distinti:
+
+- **Sessione:** conserva lo stato serializzabile delle zone, degli oggetti, dei nemici e della squadra.
+- **Controller:** applica quello stato alla scena, gestisce interazioni e passaggi e aggiorna il salvataggio.
+
+`ZoneSession` / `ZoneController` seguono l’officina della missione 2; `FacilitySession` / `FacilityController` gestiscono la struttura della missione 3; `AdventureSession` / `AdventureController` servono le altre avventure a zone collegate. La gara ha un controller dedicato, `RaceController`.
+
+Questa organizzazione permette di uscire da una stanza e rientrare mantenendo oggetti raccolti, nemici sconfitti e avanzamento. `NavigationModel` e `NavigationGuide` collegano gli obiettivi alla guida visiva, mentre `PortalView` rende riconoscibili i passaggi.
+
+### Input, combattimento ed eventi
+
+`InputState` unisce tastiera e singoli tocchi in uno stato comune. `GBAInputController` traduce i comandi in azioni; `RaceTouchControls` e `RaceDriving` aggiungono la guida specifica della gara.
+
+I personaggi e le loro IA sono separati dai sistemi di attacco. I moduli in `combat/` gestiscono colpi, combo, mosse speciali, varianti, rianimazione ed effetti. I profili nemici e le loro abilità sono definiti in `data/`; `DifficultyEncounters` adatta gli incontri alla difficoltà selezionata.
+
+`EventBus` permette a più sistemi di reagire allo stesso evento: ad esempio `loot:found` attiva la presentazione dell’oggetto e il relativo suono; `dialogue:open` collega la scena al dialogo e alla gestione del volume. Gli eventi affiancano le chiamate dirette fra i controller e la scena.
+
+### Salvataggi e audio
+
+`SaveManager` usa **localStorage** per checkpoint, missioni completate e impostazioni, conservati separatamente. Lo sblocco libero delle missioni modifica un’impostazione e non falsifica la lista delle missioni completate.
+
+`VoiceStore` conserva le registrazioni in **IndexedDB**. `SoundAndVoiceManager` gestisce effetti e battute, mentre `MusicScore` definisce le associazioni musicali e `Soundtrack` riproduce i brani con Web Audio, transizioni e variazioni di volume.
+
+Progressi e registrazioni restano nel browser e nell’origine del sito: la copia locale e quella su GitHub Pages hanno dati separati. Non è presente sincronizzazione cloud; cancellare i dati del sito elimina i salvataggi locali.
+
+## Pubblicazione su GitHub Pages
+
+Il workflow incluso pubblica **il contenuto di `dist/`**, dove si trova `index.html`.
+
+1. Mantieni `dist/` e `.github/` nella cartella principale del repository.
+2. Apri **Settings → Pages → Build and deployment → Source** e scegli **GitHub Actions**.
+3. Apri **Actions → Pubblica GTA Click su GitHub Pages → Run workflow**.
+4. Dopo il completamento, visita il [sito del gioco](https://tedibash.github.io/gta-IV-click-l-immortale/).
+
+Il workflow si attiva anche con i push su `main` e `master`. Non è richiesta una build aggiuntiva.
+
+**Se compare questo README al posto del gioco**, controlla che Pages usi GitHub Actions e che il workflow carichi `dist`, anziché la radice del repository. Con la configurazione prevista, l’URL del gioco non contiene `/dist/`.
+
+## Test e stato del progetto
+
+```bash
+npm test
+```
+
+La versione **0.23.0** è stata verificata con **175 test automatici**. La suite copre progressione, accesso alle missioni, zone collegate, salvataggi, input touch, gara, combattimento, boss, rianimazione e comportamento dei sistemi audio.
+
+I test automatici non sostituiscono le prove su dispositivi reali. Il progetto continua a evolvere: bilanciamento, animazioni e compatibilità mobile possono essere migliorati. Il fullscreen nativo e le voci disponibili dipendono dal browser; quando necessario viene usata una visualizzazione espansa nella pagina. L’audio richiede un’interazione iniziale dell’utente.
+
+## Come estendere il gioco
+
+| Vuoi modificare… | Parti da… |
+| --- | --- |
+| Storia, obiettivi o composizione della squadra | `data/campaign.js` e i file di missione richiamati |
+| Stanze, porte e interazioni | Configurazioni in `data/` e relativo controller in `world/` |
+| Personaggi e aspetto | `data/characters.js`, `data/appearance.js`, `characters/` |
+| Nemici e distribuzione nelle missioni | `data/enemies.js`, `data/enemySets.js`, `data/enemyAbilities.js` |
+| Mosse speciali e varianti | `combat/SpecialAbility.js`, `combat/PowerupSystem.js`, `data/powerups.js` |
+| Dialoghi e illustrazioni | `data/dialogues.js`, `data/scene-art.js`, `ui/NarrativeUI.js` |
+| Battute sonore e musica | `data/voices.js`, `audio/MusicScore.js`, `audio/Soundtrack.js` |
+| Home e comandi | `index.html`, i CSS e i moduli in `ui/` |
+
+Per una nuova funzionalità, aggiorna sia la logica sia gli eventuali dati salvati e aggiungi verifiche sui comportamenti che possono interrompere una partita. Per una segnalazione, indica missione, capitolo, difficoltà, browser, dispositivo e passaggi per riprodurre il problema.
+
+## Crediti
+
+Progetto personale di **[TediBash](https://github.com/tedibash)**, dedicato a Klaudio e alla banda per il suo trentesimo compleanno. Nato da una storia personalizzata e dalle illustrazioni del relativo manuale, sviluppato attraverso un percorso iterativo con il supporto di ChatGPT e Codex.
+
+Il gioco usa **Phaser** come motore 2D. I riferimenti a GTA e alle console portatili sono omaggi creativi: questo progetto non è un prodotto ufficiale Rockstar Games, Sony o Nintendo.
