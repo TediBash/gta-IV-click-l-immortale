@@ -5,7 +5,7 @@ import {drawCar} from './RaceController.js';
 import {SPIT_REVEAL} from '../data/dialogues.js';
 export class ZoneController{
  constructor(scene,session){this.scene=scene;this.session=session;this.data=session.data;this.zone=this.data.current;this.doors=DOORS[this.zone];this.busy=false;this.autosave=0;
-  if(this.zone==='workshop'){prop(scene,'paint-booth',1010,355,240,2);const b=PARKING,g=scene.add.graphics().setDepth(3);g.fillStyle(0xeac765,.13).fillRect(b.x,b.y,b.w,b.h);g.lineStyle(3,0xf7d84a).strokeRect(b.x,b.y,b.w,b.h);scene.add.text(b.x+b.w/2,b.y-20,'FORNO · PARCHEGGIA QUI',{fontSize:11,color:'#ffe7a6',fontFamily:'monospace'}).setOrigin(.5).setDepth(1200);}
+  if(this.zone==='workshop'){if(!scene.map.district)prop(scene,'paint-booth',1010,355,240,2);const b=PARKING,g=scene.add.graphics().setDepth(3);g.fillStyle(0xeac765,.13).fillRect(b.x,b.y,b.w,b.h);g.lineStyle(3,0xf7d84a).strokeRect(b.x,b.y,b.w,b.h);scene.add.text(b.x+b.w/2,b.y-20,'FORNO · PARCHEGGIA QUI',{fontSize:11,color:'#ffe7a6',fontFamily:'monospace'}).setOrigin(.5).setDepth(1200);}
   this.restore();this.drawVehicle();
  }
  get vehicle(){return this.data.vehicle;}

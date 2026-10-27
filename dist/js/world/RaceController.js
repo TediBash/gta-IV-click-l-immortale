@@ -1,7 +1,6 @@
 import {raceInput,driveRace} from '../core/RaceDriving.js';
-export const TRACK=[[190,650],[1080,650],[1130,550],[1130,200],[1050,120],[250,120],[160,200],[160,550]];
-export function segmentDistance(x,y,a,b){const dx=b[0]-a[0],dy=b[1]-a[1],t=Math.max(0,Math.min(1,((x-a[0])*dx+(y-a[1])*dy)/(dx*dx+dy*dy)));return Math.hypot(x-a[0]-t*dx,y-a[1]-t*dy);}
-export const trackDistance=(x,y)=>Math.min(...TRACK.map((p,i)=>segmentDistance(x,y,p,TRACK[(i+1)%TRACK.length])));
+import {TRACK,TRACK_HALF_WIDTH,trackDistance} from '../data/raceTrack.js';
+export {TRACK,segmentDistance,trackDistance} from '../data/raceTrack.js';
 export class RaceProgress {
  constructor(){this.next=1;this.laps=0;}
  visit(x,y){const p=TRACK[this.next];if(Math.hypot(x-p[0],y-p[1])>82)return false;const lap=this.next===0;this.next=(this.next+1)%TRACK.length;if(lap)this.laps++;return lap;}
@@ -15,11 +14,6 @@ export function drawCar(scene,x,y,color=0xb888dc,scale=1){
 export class RaceController {
  constructor(scene){
   this.scene=scene;this.x=190;this.y=650;this.angle=0;this.speed=0;this.turbo=100;this.progress=new RaceProgress();this.rivalProgress=new RaceProgress();this.rival={x:230,y:675};this.elapsed=0;this.done=false;this.countdown=3;
-  const g=scene.add.graphics().setDepth(2);
-  const path=(width,color)=>{g.lineStyle(width,color).beginPath().moveTo(...TRACK[0]);for(const p of TRACK.slice(1))g.lineTo(...p);g.closePath().strokePath();};path(150,0x6b7877);path(132,0x202e3a);path(2,0xa6a99a);
-  g.fillStyle(0x153c39).fillRoundedRect(290,240,680,280,45);
-  scene.add.text(630,350,'SPIT CUSTOMS',{fontFamily:'monospace',fontSize:34,color:'#6eaaa2',fontStyle:'bold'}).setOrigin(.5).setDepth(3);
-  for(let y=590;y<720;y+=15)for(let x=180;x<210;x+=15)g.fillStyle((x+y)%30?0xf4eeda:0x101923).fillRect(x,y,15,15);
   this.markers=TRACK.map((p,i)=>scene.add.text(p[0],p[1]-43,String(i+1),{fontFamily:'monospace',fontSize:18,color:'#e2e6d9',backgroundColor:'#20333a',padding:{x:6,y:3}}).setOrigin(.5).setDepth(4));
   this.car=drawCar(scene,this.x,this.y);this.rivalCar=drawCar(scene,this.rival.x,this.rival.y,0xe8ad63);
   this.info=scene.add.text(480,18,'',{fontFamily:'monospace',fontSize:14,color:'#fff2c2',backgroundColor:'#14212cee',padding:{x:12,y:8}}).setOrigin(.5,0).setScrollFactor(0).setDepth(3100);
@@ -32,7 +26,7 @@ export class RaceController {
   this.elapsed+=dt;const controls=raceInput(input,s.app.settings),requested=input.consume('special');
   if(controls.brake||controls.reverse)this.boostUntil=0;
   const boosted=requested&&!controls.brake&&!controls.reverse&&this.speed>=0&&this.turbo>=35;if(boosted){this.boostUntil=this.elapsed+1.4;this.turbo-=35;s.audio.effect('special');}
-  this.turbo=Math.min(100,this.turbo+dt*8);const boost=this.elapsed<(this.boostUntil||0),offroad=trackDistance(this.x,this.y)>66;
+  this.turbo=Math.min(100,this.turbo+dt*8);const boost=this.elapsed<(this.boostUntil||0),offroad=trackDistance(this.x,this.y)>TRACK_HALF_WIDTH;
   driveRace(this,dt,controls,s.app.settings,{offroad,boost,target:TRACK[this.progress.next],next:TRACK[(this.progress.next+1)%TRACK.length]});
   if(this.progress.visit(this.x,this.y)){s.mission.record('laps');s.audio.effect('gate');}
   const target=TRACK[this.rivalProgress.next],dx=target[0]-this.rival.x,dy=target[1]-this.rival.y,d=Math.hypot(dx,dy)||1;

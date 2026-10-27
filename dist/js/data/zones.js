@@ -10,9 +10,9 @@ export const ZONE_LINES=[
 {id:'click.zone.transformed.01',character:'click',event:'dialogue',text:'Non la riconosceranno. Portiamola al circuito!'}];
 export const zoneLine=id=>ZONE_LINES.find(l=>l.id===id);
 export const DOORS={
- street:[{id:'workshop-in',x:300,y:330,to:'workshop',spawn:[620,640],label:'OFFICINA DI SPIT',vehicle:true},{id:'depot-in',x:1030,y:330,to:'depot',spawn:[160,650],label:'DEPOSITO AUTO',vehicle:true}],
- workshop:[{id:'workshop-out',x:620,y:710,to:'street',spawn:[300,420],label:'STRADA DI FOSSANO',vehicle:true}],
- depot:[{id:'depot-out',x:90,y:650,to:'street',spawn:[1030,420],label:'STRADA DI FOSSANO',vehicle:true}]
+ street:[{id:'workshop-in',x:300,y:330,to:'workshop',spawn:[620,640],label:'OFFICINA DI SPIT',vehicle:true,presentation:'garage'},{id:'depot-in',x:1030,y:330,to:'depot',spawn:[160,650],label:'DEPOSITO AUTO',vehicle:true,presentation:'garage'}],
+ workshop:[{id:'workshop-out',x:620,y:710,to:'street',spawn:[300,420],label:'STRADA DI FOSSANO',vehicle:true,presentation:'threshold'}],
+ depot:[{id:'depot-out',x:90,y:650,to:'street',spawn:[1030,420],label:'STRADA DI FOSSANO',vehicle:true,presentation:'threshold'}]
 };
 export const ZONE_NAMES={street:'Fossano · via delle officine',workshop:'Officina Spit · ricambi e forno',depot:'Deposito · la supercar'};
 export const PARKING={x:930,y:190,w:160,h:160};

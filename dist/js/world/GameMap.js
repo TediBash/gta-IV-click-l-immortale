@@ -1,5 +1,13 @@
 import {floor,prop,LANDSCAPE_SKINS} from '../data/skins.js';
 import {MISSION_LOOKS} from '../data/atmosphere.js';
+import {drawHideoutDistrict} from './HideoutDistrict.js';
+import {drawCircuitDistrict} from './CircuitDistrict.js';
+import {romeArea,drawRomeDistrict} from './RomeDistrict.js';
+import {sewerArea,drawSewerDistrict} from './SewerDistrict.js';
+import {civilArea,drawCivilDistrict} from './CivilDistrict.js';
+import {greekArea,drawGreekDistrict} from './GreekDistrict.js';
+import {industrialArea,drawIndustrialDistrict} from './IndustrialDistrict.js';
+import {fossanoArea,drawFossanoDistrict} from './FossanoDistrict.js';
 export function overlapsCircleRect(x,y,r,box){const px=Math.max(box.x,Math.min(x,box.x+box.w)),py=Math.max(box.y,Math.min(y,box.y+box.h));return Math.hypot(x-px,y-py)<r;}
 export class GameMap{
  constructor(scene,config,index){this.scene=scene;this.config=config;this.width=1280;this.height=800;this.index=index;this.obstacles=config.obstacles.map(([x,y,w,h])=>({x,y,w,h}));this.draw();}
@@ -12,6 +20,20 @@ export class GameMap{
   if(!end)return {x:tx,y:ty};while(parents.get(end)&&parents.get(end)!==start)end=parents.get(end);const [nx,ny]=end.split(',').map(Number);return {x:nx*cell+cell/2,y:ny*cell+cell/2};
  }
  draw(){
+  if(this.scene.isHideout){this.district=drawHideoutDistrict(this.scene,this.config);return;}
+  if(this.scene.mission.id===2&&this.config.mode==='race'){this.district=drawCircuitDistrict(this.scene);return;}
+  const district=fossanoArea(this.scene,this.config,this.index);
+  if(district){this.district=drawFossanoDistrict(this.scene,this.config,district);return;}
+  const industrial=industrialArea(this.scene,this.config);
+  if(industrial){this.district=drawIndustrialDistrict(this.scene,this.config,industrial);return;}
+  const greekDistrict=greekArea(this.scene,this.config);
+  if(greekDistrict){this.district=drawGreekDistrict(this.scene,this.config,greekDistrict);return;}
+  const civil=civilArea(this.scene,this.config);
+  if(civil){this.district=drawCivilDistrict(this.scene,this.config,civil);return;}
+  const sewerDistrict=sewerArea(this.scene,this.config);
+  if(sewerDistrict){this.district=drawSewerDistrict(this.scene,this.config,sewerDistrict);return;}
+  const rome=romeArea(this.scene,this.config);
+  if(rome){this.district=drawRomeDistrict(this.scene,this.config,rome);return;}
   const s=this.scene,c=this.config,theme=c.theme,look=MISSION_LOOKS[s.mission.id],g=s.add.graphics().setDepth(0),indoor=theme==='interior'||theme==='lab',sewer=theme==='sewer',greek=theme==='greece'||theme==='village';
   g.fillStyle(greek?0xa7b883:theme==='estate'?0x67836a:0x253e42).fillRect(0,0,1280,800);
   if(indoor||sewer||['garage','race','facility'].includes(theme))floor(s,sewer?'sewer':theme==='interior'?'marble':'concrete',30,48,1220,730);

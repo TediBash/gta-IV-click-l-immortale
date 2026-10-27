@@ -1,0 +1,3 @@
+GTA CLick 0.30.0
+Archivio rigenerato: 27 ottobre 2026
+Commit: 903cbe87d75a812b045376363d909cf6af2f5e90

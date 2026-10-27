@@ -111,6 +111,7 @@ export class GameScene extends Phaser.Scene {
  }
  refreshHud(time){if(time-(this.lastHud||0)>130){this.lastHud=time;this.bus.emit('hud:update',this);}}
  renderWorld(){
+  this.map?.district?.update(this.player);
   if(!this.race)this.party.forEach((p,i)=>p.render(i===this.activeIndex,this.now));
   const camera=this.cameras.main;camera.scrollX=Phaser.Math.Clamp(this.player.x-camera.width/2,0,Math.max(0,1280-camera.width));camera.scrollY=Phaser.Math.Clamp(this.player.y-camera.height*.55,0,Math.max(0,800-camera.height));
   if(this.race)this.race.info.setPosition(camera.width/2,12).setWordWrapWidth(camera.width-40).setAlign('center');
@@ -119,6 +120,8 @@ export class GameScene extends Phaser.Scene {
  }
  drawMinimap(){
   const g=this.minimap,x=this.cameras.main.width-148,y=16,w=132,h=82;g.clear();g.fillStyle(0x0c2029,.85).fillRect(x,y,w,h);g.lineStyle(1,0x729b92).strokeRect(x,y,w,h);
+  for(const c of this.map.district?.layout.channels||[])g.fillStyle(c.color).fillRect(x+c.x/1280*w,y+c.y/800*h,c.w/1280*w,c.h/800*h);
+  for(const r of this.map.district?.layout.roads||[])g.fillStyle(r.color??0x3d505a).fillRect(x+r.x/1280*w,y+r.y/800*h,r.w/1280*w,r.h/800*h);
   for(const b of this.map.obstacles)g.fillStyle(0x52706b).fillRect(x+b.x/1280*w,y+b.y/800*h,b.w/1280*w,b.h/800*h);
   this.enemies.filter(e=>!e.ko).forEach(e=>g.fillStyle(0xe8a18b).fillRect(x+e.x/1280*w-1,y+e.y/800*h-1,3,3));
   if(this.navigation)this.navigation.drawMinimap(g,x,y,w,h);else this.party.forEach(p=>g.fillStyle(p===this.player?0xffffff:0x84d6d0).fillCircle(x+p.x/1280*w,y+p.y/800*h,2.5));

@@ -1,4 +1,4 @@
-# GTA CLick — copia locale v0.23
+# GTA CLick — copia locale v0.30
 
 La cartella contiene il progetto modificabile, le immagini e il motore Phaser già incluso. Non servono account, chiavi API, compilazione o `npm install` per giocare.
 
@@ -43,6 +43,7 @@ Le registrazioni personali si caricano da «Le voci della banda». Conserva gli 
 
 Salva un file modificato e ricarica il browser per vedere la modifica. Il pacchetto è indipendente dalla copia online: le modifiche locali non la aggiornano automaticamente.
 
+
 ## Stato della versione
 
-Ultima versione: 0.23. Vedi LEGGIMI.md per pubblicazione GitHub Pages e contenuti; README.md contiene la cronologia completa.
+Vedi README.md per la versione 0.30 e ROADMAP_MAPPE.md per gli interventi sulle mappe.

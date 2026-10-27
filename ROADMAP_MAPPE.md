@@ -1,5 +1,23 @@
 # GTA CLick — mappe collegate e direzione visiva
 
+## Glowup delle ambientazioni — v0.30, 26 ottobre 2026
+
+| Tappa | Stato | Ambito |
+|---|---|---|
+| Fossano e officine | Implementata nella v0.24 | Piazzale, strada, officina e deposito; facciate, viabilità e forno |
+| Ambienti industriali | Implementata nella v0.25 | 19 zone delle missioni 3, 6 e 8; laboratori, server, azienda dei diamanti e laboratorio di Luca |
+| Grecia | Implementata nella v0.26 | Sette zone: villaggio, uliveti, base, collina, belvedere, casa e partenza; sentieri coerenti con la minimappa |
+| Villa e ambienti civili | Implementata nella v0.27 — 13 zone | Missioni 4 e 7: cancelli, giardini, interni della villa, piazze, sale riunioni e archivi |
+| Sotterranei | Implementata nella v0.28 — 7 zone | Missione 5: fogne, valvole, collettore, arena dell’alligatore e pizzeria |
+| Roma e finale | Implementata nella v0.29 — 14 zone | Missioni 9 e 10: ricevimento, strade, piazza e ritorno a Fossano |
+| Covo e circuito | Implementati nella v0.30 | Undici postazioni, sei aree del covo, cordoli, griglia e box della pista |
+| Verifica su dispositivi e rifiniture | Prossima tappa — da completare | Collaudo reale in verticale/orizzontale, fullscreen, leggibilità e prestazioni |
+
+Queste tappe riguardano il rinnovo grafico delle missioni già giocabili. Restano invariati gli obiettivi, la progressione, le collisioni e i salvataggi. La v0.25 include anche l’ingrandimento responsive dei dialoghi e dell’HUD sui grandi schermi. La v0.30 supera 204 controlli automatici; le tavole statiche delle mappe sono state ispezionate. Il servizio di anteprima è indisponibile: non si dichiara concluso il collaudo visivo nel browser.
+
+Le sezioni successive conservano la roadmap funzionale e gli aggiornamenti precedenti.
+
+
 ## Stato v0.12 — 24 ottobre 2026
 
 | Tappa | Stato | Risultato e prossimo passo |
